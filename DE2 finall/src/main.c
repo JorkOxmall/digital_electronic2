@@ -1,4 +1,3 @@
-Využíváte 79 % úložiště … Když vám dojde místo, nebudete moct vytvářet, upravovat a nahrávat soubory.
 /* 
  * Read values from I2C (TWI) temperature/humidity sensor and send
  * them to OLED screen.
