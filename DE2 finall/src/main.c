@@ -1,4 +1,4 @@
-
+Využíváte 79 % úložiště … Když vám dojde místo, nebudete moct vytvářet, upravovat a nahrávat soubory.
 /* 
  * Read values from I2C (TWI) temperature/humidity sensor and send
  * them to OLED screen.
@@ -85,7 +85,7 @@ void adc_init(void)
 {
     // Set the reference voltage to AVcc
     ADMUX |= (1 << REFS0);
-    // Enable the ADC and set the prescaler to 128 (16MHz/128 = 125kHz)
+    // Enable the ADC and set the prescaler
     ADCSRA |= (1 << ADEN) | (7 << ADPS0);
 }
 
@@ -100,10 +100,9 @@ uint16_t adc_read(uint8_t channel)
     // Return the ADC value
     return ADC;
 }
-
+// příprava na servo pro otevření okna
 void open_window(void) {
-    // Code to open the window, for example, setting a pin high
-    // Adjust the code based on your hardware setup
+    
     PORTB |= (1 << PB0);
 }
 
@@ -142,23 +141,23 @@ int main(void)
             // Read photoresistor value
             light_level = adc_read(0);  // Read the light level from ADC channel 0
             
-            // Light level detection
+            // Light level detection (highet value means day)
             oled_gotoxy(14, 2);
-            if (light_level > 700) {  // Adjust threshold as needed
+            if (light_level > 700) {  
                 sprintf(oled_msg, "Den ");
             } else {
                 sprintf(oled_msg, "Noc");
             }
             oled_puts(oled_msg);
-            // Infinite loop
+            
     
 
             // Read soil moisture level
-            moisture_level = adc_read(1);  // Read the soil moisture level from ADC channel 1
+            moisture_level = adc_read(1);  
 
             // Soil moisture status
             oled_gotoxy(14, 3);
-            if (moisture_level > 500) {
+            if (moisture_level > 500) { 
                 moisture_status = "Out ";
             } else if (moisture_level > 260) {
                 moisture_status = "Dry";
@@ -195,11 +194,11 @@ int main(void)
         }
     }
 
-    // Will never reach this
+    
     return 0;
 }
 
-// -- Interrupt service routines -------------------------------------
+
 ISR(TIMER1_OVF_vect)
 {
     static uint8_t n_ovfs = 0;
