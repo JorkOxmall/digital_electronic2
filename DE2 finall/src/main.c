@@ -84,7 +84,7 @@ void adc_init(void)
 {
     // Set the reference voltage to AVcc
     ADMUX |= (1 << REFS0);
-    // Enable the ADC and set the prescaler
+    // Enable the ADC and set the prescaler for 128
     ADCSRA |= (1 << ADEN) | (7 << ADPS0);
 }
 
@@ -108,7 +108,6 @@ void open_window(void) {
 int main(void)
 {
     char oled_msg[20];
-    
     uint16_t light_level;  // Variable for light level
     uint16_t moisture_level;  // Variable for soil moisture level
     const char *moisture_status;  // Variable for soil moisture status
